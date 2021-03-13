@@ -15,7 +15,7 @@ After you've done all that (and once this project is complete) it gets damn simp
 If you're interested in seeing it work on a small dataset
 
 ```
-cargo run examples/small.csv
+cargo run < examples/small.csv
 ```
 
 With the addition of a visualizer, the goal is to be able to see the perceptron updates in real-time. 
