@@ -1,10 +1,48 @@
-struct Perceptron {
+use std::error::Error;
+use std::io;
+use std::process;
+extern crate csv;
+extern crate serde_derive;
+// #[macro_use]
+
+#[derive(serde_derive::Deserialize)]
+struct Input {
+  binary_class: i32,
+  x: i32, 
+  y: i32
+}
+
+fn read() -> Result<(), Box<dyn Error>> {
+    // Build the CSV reader and iterate over each record.
+    let mut rdr = csv::Reader::from_reader(io::stdin());
+    for result in rdr.records() {
+        // iterator yields Result<StringRecord, Error>, so we check the error here.
+        let record = result?;
+        assert_eq!(3, record.len()); // real-time validation
+        let input: Input = record.deserialize(None)?;
+        println!("{:?}", record);
+        println!("{} {} {}", input.binary_class, input.x, input.y);
+    }
+    Ok(())
+}
+
+pub fn safe_read() {
+    if let Err(err) = read() {
+        println!("error running example: {}", err);
+        process::exit(1);
+    }
+}
+
+
+
+pub struct Perceptron {
   w1: i32,
   w2: i32,
   b: i32
 }
 
 impl Perceptron {
+
   /**
    * Construct a Perceptron model.
    * @param w1: x weight
@@ -45,26 +83,26 @@ impl Perceptron {
  * Train the perceptron model on the data
  * according to perceptron learning algorithm.
  */
-  pub fn train_model() {
-    let percep_model = Perceptron::new(1,1,1);
-    
-    // /**
-    //  * 1. read data from csv line by line
-    //  *    (1, 2,1)
-    //  *    (1, 5,3)
-    //  *   (-1, 6,3)
-    //  *   (-1, 7,2)
-    //  *    (1, 4,2)
-    //  *    (1, 4,5)
-    //  *    ...
-    //  * 
-    //  * 2. transform data: points = [ (1,2,1), (1,5,3), (-1,6,3), ... ]
-    //  * 
-    //  * 3. for every point, adjust perceptron to create linear model if possible.
-    //  * 
-    //  * 4. 
-    //  */
-  }
+pub fn train_model() {
+  let p: Perceptron = Perceptron::new(1,1,1);
+  println!("x weight: {}, y weight: {}, y intercept: {}", p.w1, p.w2, p.b);
+  // /**
+  //  * 1. read data from csv line by line
+  //  *    (1, 2,1)
+  //  *    (1, 5,3)
+  //  *   (-1, 6,3)
+  //  *   (-1, 7,2)
+  //  *    (1, 4,2)
+  //  *    (1, 4,5)
+  //  *    ...
+  //  * 
+  //  * 2. transform data: points = [ (1,2,1), (1,5,3), (-1,6,3), ... ]
+  //  * 
+  //  * 3. for every point, adjust perceptron to create linear model if possible.
+  //  * 
+  //  * 4. 
+  //  */
+}
 
 /**
  * Basic, Quick Test Suite.
@@ -80,3 +118,4 @@ pub fn execute_test_suite() {
   // SUITE: Actual Model
   // to be implemented...
 }
+
