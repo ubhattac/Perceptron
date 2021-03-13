@@ -1,12 +1,12 @@
 # Perceptron Learning Algorithm.
 
-A perceptron is just a neural network unit that repeatedly performs computations in order to glean useful features or business intelligence in the input data.
+A perceptron is just a recurrently-activated neural network that finds useful features or business intelligence in input data. Here's an insanely simple model:
 
 ![](https://miro.medium.com/max/645/0*LJBO8UbtzK_SKMog)
 
-You should ideally [santize](https://realpython.com/python-data-cleaning-numpy-pandas/#tidying-up-fields-in-the-data) your data before using this API. You could probably use `pandas` and not break a sweat.
+You should ideally [santize](https://realpython.com/python-data-cleaning-numpy-pandas/#tidying-up-fields-in-the-data) your data before using this API. You could use `pandas` or something similar to clean your data, not even breaking a sweat.
 
-This is written is being written rust cuz it's [fast](https://kornel.ski/rust-c-speed) and [fun](https://stackoverflow.blog/2020/01/20/what-is-rust-and-why-is-it-so-popular/). I'm pretty busy with school and other things right now so you're heavily encouraged to contribute.
+Ended up choosing to write the source code in Rust. [fast](https://kornel.ski/rust-c-speed) and [fun](https://stackoverflow.blog/2020/01/20/what-is-rust-and-why-is-it-so-popular/). I'm pretty busy with school and other things right now so you're heavily encouraged to contribute.
 
 Keep in mind that this is a binary classifier so craft each line in your `.csv` in the format of `<binary class [0 or 1]>, cartesian x, cartesian y`.
 
