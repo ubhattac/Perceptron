@@ -6,22 +6,34 @@ extern crate serde_derive;
 // #[macro_use]
 
 #[derive(serde_derive::Deserialize)]
+struct StringInput {
+  bc_str: String,
+  x_str: String, 
+  y_str: String
+}
+
 struct Input {
-  binary_class: String,
-  x: String, 
-  y: String
+  binary_class: i32,
+  x: i32,
+  y: i32
 }
 
 fn read() -> Result<(), Box<dyn Error>> {
     // Build the CSV reader and iterate over each record.
     let mut rdr = csv::Reader::from_reader(io::stdin());
+    let mut points: Vec<[i32; 3]>;
     for result in rdr.records() {
-        // iterator yields Result<StringRecord, Error>, so we check the error here.
-        let record = result?;
-        assert_eq!(3, record.len()); // real-time validation
-        let input: Input = record.deserialize(None)?;
-        println!("{:?}", record);
-        println!("{} {} {}", input.binary_class, input.x, input.y);
+      let record = result?;
+      // iterator yields Result<StringRecord, Error>, so we check the error here.
+      assert_eq!(3, record.len()); // minimal input validation
+      let str_input: StringInput = record.deserialize(None)?;
+      
+      let point_strs: [String; 3] = [str_input.bc_str, str_input.x_str, str_input.y_str];
+      let mut point: [i32; 3] = [0,0,0];
+      for i in 0..point_strs.len() {
+        point[i] = point_strs[i].parse::<i32>().unwrap();
+      }
+      println!("{:?}",point); //debug trait
     }
     Ok(())
 }
@@ -33,12 +45,11 @@ pub fn safe_read() {
     }
 }
 
-
-
 pub struct Perceptron {
   w1: i32,
   w2: i32,
-  b: i32
+  b: i32,
+  points: Vec<[i32;3]>
 }
 
 impl Perceptron {
@@ -49,11 +60,12 @@ impl Perceptron {
    * @param w2: y weight
    * @param b: y intercept
    */
-  fn new(w1: i32, w2: i32, b: i32) -> Perceptron {
+  fn new(w1: i32, w2: i32, b: i32, points: Vec<[i32; 3]>) -> Perceptron {
     Perceptron {
       w1: w1,
       w2: w2,
-      b: b
+      b: b,
+      points: points
     }
   }
 
@@ -77,6 +89,15 @@ impl Perceptron {
     let net = (coord[0] * coeff[0]) + (coord[1] * coeff[1]) + coeff[2];
     return Perceptron::activate(net);
   }
+
+  /**
+   * Bypass mutable borrowing.
+   * Allow [i32; 3] to be pushed onto 'points' vector
+   * @param point: the point to be pushed onto points.
+   */
+  fn push_point(&mut self, point: [i32; 3]) {
+    self.points.push(point);
+  }
 }
 
 /**
@@ -84,8 +105,9 @@ impl Perceptron {
  * according to perceptron learning algorithm.
  */
 pub fn train_model() {
-  let p: Perceptron = Perceptron::new(1,1,1);
-  println!("x weight: {}, y weight: {}, y intercept: {}", p.w1, p.w2, p.b);
+  let mut p: Perceptron = Perceptron::new(1,1,1,vec![]);
+  p.push_point([1,2,3]);
+  println!("x weight: {}, y weight: {}, y intercept: {}, points: {:?}", p.w1, p.w2, p.b, p.points);
   // /**
   //  * 1. read data from csv line by line
   //  *    (1, 2,1)
