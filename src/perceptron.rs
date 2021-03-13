@@ -7,9 +7,9 @@ extern crate serde_derive;
 
 #[derive(serde_derive::Deserialize)]
 struct Input {
-  binary_class: i32,
-  x: i32, 
-  y: i32
+  binary_class: String,
+  x: String, 
+  y: String
 }
 
 fn read() -> Result<(), Box<dyn Error>> {
