@@ -5,7 +5,6 @@ struct Perceptron {
 }
 
 impl Perceptron {
-
   /**
    * Construct a Perceptron model.
    * @param w1: x weight
@@ -22,6 +21,7 @@ impl Perceptron {
 
   /**
    * Activation function for binary perceptron.
+   * @param net: the "net value" a.k.a. the model's output.
    */
   fn activate(net: i32) -> i32 {
     return if net >= 0 {1} else {-1};
@@ -36,31 +36,47 @@ impl Perceptron {
    */
   fn classify_point(coord: [i32; 2], coeff: [i32; 3]) -> i32 {
     // output = w_1 * x + w_2 * y + y_intercept
-    let net = (coord[0] * coeff[0]) + (coord[1] * coeff[1]) + coeff[2]; 
+    let net = (coord[0] * coeff[0]) + (coord[1] * coeff[1]) + coeff[2];
     return Perceptron::activate(net);
   }
-
-  /**
-   * @param
-   */
-  fn update_model() {
-
-  }
 }
+
+/**
+ * Train the perceptron model on the data
+ * according to perceptron learning algorithm.
+ */
+  pub fn train_model() {
+    let percep_model = Perceptron::new(1,1,1);
+    
+    // /**
+    //  * 1. read data from csv line by line
+    //  *    (1, 2,1)
+    //  *    (1, 5,3)
+    //  *   (-1, 6,3)
+    //  *   (-1, 7,2)
+    //  *    (1, 4,2)
+    //  *    (1, 4,5)
+    //  *    ...
+    //  * 
+    //  * 2. transform data: points = [ (1,2,1), (1,5,3), (-1,6,3), ... ]
+    //  * 
+    //  * 3. for every point, adjust perceptron to create linear model if possible.
+    //  * 
+    //  * 4. 
+    //  */
+  }
 
 /**
  * Basic, Quick Test Suite.
  */
 pub fn execute_test_suite() {
-
+  // SUITE: Classify Points
   assert_eq!(1, Perceptron::classify_point([1,4], [-2,1,2]));
-  
   assert_eq!(1, Perceptron::classify_point([3,4], [-2,1,2]));
-  
   assert_eq!(1, Perceptron::classify_point([0,-2], [-2,1,2]));
-  
   assert_eq!(1, Perceptron::classify_point([-1,23], [-2,1,2]));
-  
   assert_eq!(-1,Perceptron::classify_point([5,0], [-2,1,2]));
 
+  // SUITE: Actual Model
+  // to be implemented...
 }
