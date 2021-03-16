@@ -18,12 +18,12 @@ If you're interested in seeing it work on a small dataset
 cargo run < examples/small.csv
 ```
 
-With the addition of a visualizer, the goal is to be able to see the perceptron updates in real-time. 
+With the addition of a visualizer, the goal is to be able to see the perceptron updates in real-time.
 ![](https://demonstrations.wolfram.com/PerceptronAlgorithmInMachineLearning/img/popup_2.png)
 
 ### Tech Debts
 
-1. Finish the model trainer. 
+1. Finish the model trainer.
 
 2. Create unit tests for the more nuanced datasets which may or may not be linearly separable.
 
