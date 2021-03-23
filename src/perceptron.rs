@@ -76,7 +76,7 @@ impl Perceptron {
   fn activate(net: i32) -> i32 {
     return if net >= 0 {1} else {-1};
   }
-
+  
   /**
    * Classify the perceptron's output as adhering to, 
    * or straying from the actual category (i.e. 1 or -1).
