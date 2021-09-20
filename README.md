@@ -1,6 +1,6 @@
 # Perceptron Learning Algorithm.
 
-> _In progress_
+> _In progress, when I'm not busy w/ school_
 
 A perceptron is just a recurrently-activated neural network that finds useful features or business intelligence in input data. Here's an insanely simple model:
 
