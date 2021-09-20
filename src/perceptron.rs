@@ -8,7 +8,7 @@ extern crate serde_derive;
 #[derive(serde_derive::Deserialize)]
 struct StringInput {
   bc_str: String,
-  x_str: String, 
+  x_str: String,
   y_str: String
 }
 
@@ -27,7 +27,7 @@ fn read() -> Result<(), Box<dyn Error>> {
       // iterator yields Result<StringRecord, Error>, so we check the error here.
       assert_eq!(3, record.len()); // minimal input validation
       let str_input: StringInput = record.deserialize(None)?;
-      
+
       let point_strs: [String; 3] = [str_input.bc_str, str_input.x_str, str_input.y_str];
       let mut point: [i32; 3] = [0,0,0];
       for i in 0..point_strs.len() {
@@ -76,9 +76,9 @@ impl Perceptron {
   fn activate(net: i32) -> i32 {
     return if net >= 0 {1} else {-1};
   }
-  
+
   /**
-   * Classify the perceptron's output as adhering to, 
+   * Classify the perceptron's output as adhering to,
    * or straying from the actual category (i.e. 1 or -1).
    * @param coord: array of x and y coordinate
    * @param coeff: array of x weight, y weight, and y intercept.
@@ -117,12 +117,12 @@ pub fn train_model() {
   //  *    (1, 4,2)
   //  *    (1, 4,5)
   //  *    ...
-  //  * 
+  //  *
   //  * 2. transform data: points = [ (1,2,1), (1,5,3), (-1,6,3), ... ]
-  //  * 
+  //  *
   //  * 3. for every point, adjust perceptron to create linear model if possible.
-  //  * 
-  //  * 4. 
+  //  *
+  //  * 4.
   //  */
 }
 
