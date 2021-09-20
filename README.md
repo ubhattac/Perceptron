@@ -1,5 +1,7 @@
 # Perceptron Learning Algorithm.
 
+> _In progress_
+
 A perceptron is just a recurrently-activated neural network that finds useful features or business intelligence in input data. Here's an insanely simple model:
 
 ![](https://miro.medium.com/max/645/0*LJBO8UbtzK_SKMog)
